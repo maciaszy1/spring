@@ -28,7 +28,7 @@ public class ForumCategory {
 	@Column(name="description")
 	private String description;
 	
-	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="forumCategory", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<ForumPost> forumPosts;
 
 	public int getId() {
@@ -68,8 +68,10 @@ public class ForumCategory {
 		return "ForumCategory [id=" + id + ", title=" + title + ", description=" + description + "]";
 	}
 	
-	public void addPost(ForumPost forumPost) {
-		forumPosts.add(forumPost);
+	public List<ForumPost> addPost(ForumPost forumPost) {
+		List<ForumPost> newList = forumPosts;
+		newList.add(forumPost);
+		return newList;
 	}
 	
 	

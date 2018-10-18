@@ -25,20 +25,24 @@
 	<c:url var="boardLink" value="/board">
 		<c:param name="categoryId" value="${tempCategory.id}"/>
 	</c:url>
+	<c:url var="deleteBoard" value="/deleteBoard">
+		<c:param name="categoryId" value="${tempCategory.id}"/>
+	</c:url>
 	<tr>
 		<td>${tempCategory.title}</td>
 		<td>${tempCategory.description}</td>
 		<td>
 		<a href="${boardLink}">Wejscie</a>
 		</td>
+		<td>
+		<a href="${deleteBoard}">Usun</a>
+		</td>
 	</tr>
 	</c:forEach>
 	</table>
 	<hr>
-	<p>
-		<form:form action="/webproject/logout" method="POST">
-			<input type="submit" value="Logout" />
-		</form:form>
-	</p>
+	<form:form action="${pageContext.request.contextPath}/logout" method="POST">
+		<input type="submit" value="Wyloguj"/>
+	</form:form>
 </body>
 </html>

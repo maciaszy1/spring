@@ -23,5 +23,9 @@
 		<br>
 		<input type="submit" value="Zapisz" class="save"/>
 	</form:form>
+	<hr>
+	<form:form action="${pageContext.request.contextPath}/logout" method="POST">
+		<input type="submit" value="Wyloguj"/>
+	</form:form> 
 </body>
 </html>

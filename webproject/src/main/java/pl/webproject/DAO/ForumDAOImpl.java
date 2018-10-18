@@ -6,11 +6,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
-
 import pl.webproject.entity.ForumCategory;
 import pl.webproject.entity.ForumPost;
+import pl.webproject.entity.Role;
+import pl.webproject.entity.User;
 
 @Repository
 public class ForumDAOImpl implements ForumDAO {
@@ -53,6 +53,18 @@ public class ForumDAOImpl implements ForumDAO {
 		
 		return users;
 	}
+	
+	@Override
+	public List<Role> getRoles() {
+		
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		Query<Role> query = currentSession.createQuery("from Role order by id");
+		
+		List<Role> roles= query.getResultList();
+		
+		return roles;
+	}
 
 	@Override
 	public ForumCategory getForumCategory(int id) {
@@ -83,6 +95,16 @@ public class ForumDAOImpl implements ForumDAO {
 		
 		return theUser;
 	}
+	
+	@Override
+	public Role getRole(int id) {
+		
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		Role role = currentSession.get(Role.class, id);
+		
+		return role;
+	}
 
 	@Override
 	public void deleteForumCategory(int id) {
@@ -93,7 +115,6 @@ public class ForumDAOImpl implements ForumDAO {
 		query.setParameter("id", id);
 		
 		query.executeUpdate();
-
 	}
 
 	@Override
@@ -109,15 +130,26 @@ public class ForumDAOImpl implements ForumDAO {
 	}
 
 	@Override
-	public void deleteUser(int id) {
+	public void deleteUser(String username) {
 		
 		Session currentSession = sessionFactory.getCurrentSession();
 		
-		Query query = currentSession.createQuery("delete from User where id=:id");
-		query.setParameter("id", id);
+		Query query = currentSession.createQuery("delete from User where username=:username");
+		query.setParameter("username", username);
 		
 		query.executeUpdate();
 
+	}
+	
+	@Override
+	public void deleteRole(int id) {
+		
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		Query query = currentSession.createQuery("delete from Role where id=:id");
+		query.setParameter("id", id);
+		
+		query.executeUpdate();
 	}
 
 	@Override
@@ -145,6 +177,24 @@ public class ForumDAOImpl implements ForumDAO {
 		
 		currentSession.saveOrUpdate(user);
 
+	}
+	
+	@Override
+	public void saveRole(Role role) {
+		
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		currentSession.saveOrUpdate(role);
+	}
+	
+	@Override
+	public User findByUserName(String userName) {
+		
+		Session currentSession = sessionFactory.getCurrentSession();
+		Query<User> theQuery = currentSession.createQuery("from User where username=:username", User.class);
+		theQuery.setParameter("username",userName);
+		User theUser = theQuery.getSingleResult();
+		return theUser;
 	}
 
 }

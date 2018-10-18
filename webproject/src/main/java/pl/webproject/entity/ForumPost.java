@@ -20,8 +20,11 @@ public class ForumPost {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_post")
 	private int id;
-	
-	@OneToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	/*
+	@OneToOne(mappedBy = "forumPost", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	*/
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="id_user")
 	User user;
 	
 	@Column(name="title")
@@ -29,7 +32,11 @@ public class ForumPost {
 	
 	@Column(name="content")
 	private String content;
-
+	
+	@ManyToOne
+	@JoinColumn(name="id_category")
+	private ForumCategory forumCategory;
+	
 	public int getId() {
 		return id;
 	}
@@ -60,6 +67,14 @@ public class ForumPost {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+	
+	public ForumCategory getForumCategory() {
+		return forumCategory;
+	}
+
+	public void setForumCategory(ForumCategory forumCategory) {
+		this.forumCategory = forumCategory;
 	}
 
 	@Override

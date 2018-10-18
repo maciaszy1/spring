@@ -3,6 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
 <head>
@@ -10,17 +11,29 @@
 <title></title>
 </head>
 <body>
+<h3>${forumCategory.title}</h3>
 <hr><hr>
-
-	<form:form action="saveForumPost" modelAttribute="forumPost" method="POST">
-		<form:hidden path="id"/>	
+<c:forEach var="tempPost" items="${forumCategory.forumPosts}">
+<c:url var="deletePost" value="/deletePost">
+	<c:param name="postId" value="${tempPost.id}"/>
+</c:url>
+<p>Wpis dokonany przez: ${tempPost.user.username} || ${tempPost.title} || <a href="${deletePost}">Usun</a> </p>
+<hr>
+<p>${tempPost.content}</p>
+<hr><hr>
+</c:forEach>
+	<form:form action="saveForumPost${forumCategory.id}" modelAttribute="forumPost" method="POST">
+		<form:hidden path="id"/>
 		<label>Tytul</label>
 		<form:input path="title"/>
 		<br>
-		<form:input path="content"/>
+		<form:textarea path="content" rows="5" cols="30"/>
 		<br>
 		<input type="submit" value="Postuj" class="save"/>
 	</form:form>
-	
+	<hr>
+	<form:form action="${pageContext.request.contextPath}/logout" method="POST">
+		<input type="submit" value="Wyloguj"/>
+	</form:form>
 </body>
 </html>

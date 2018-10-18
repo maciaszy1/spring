@@ -3,13 +3,13 @@ package pl.webproject.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import pl.webproject.DAO.ForumDAO;
 import pl.webproject.entity.ForumCategory;
 import pl.webproject.entity.ForumPost;
+import pl.webproject.entity.Role;
 
 @Service
 public class ForumServiceImpl implements ForumService {
@@ -31,11 +31,12 @@ public class ForumServiceImpl implements ForumService {
 		return forumDAO.getForumPosts();
 	}
 
+	
 	@Override
 	@Transactional
-	public List<User> getUsers() {
+	public List<Role> getRoles() {
 		
-		return forumDAO.getUsers();
+		return forumDAO.getRoles();
 	}
 
 	@Override
@@ -52,11 +53,12 @@ public class ForumServiceImpl implements ForumService {
 		return forumDAO.getForumPost(id);
 	}
 
+	
 	@Override
 	@Transactional
-	public User getUser(int id) {
+	public Role getRole(int id) {
 		
-		return forumDAO.getUser(id);
+		return forumDAO.getRole(id);
 	}
 
 	@Override
@@ -73,11 +75,12 @@ public class ForumServiceImpl implements ForumService {
 		forumDAO.deleteForumPost(id);
 	}
 
+	
 	@Override
 	@Transactional
-	public void deleteUser(int id) {
+	public void deleteRole(int id) {
 		
-		forumDAO.deleteUser(id);
+		forumDAO.deleteRole(id);
 	}
 
 	@Override
@@ -94,11 +97,12 @@ public class ForumServiceImpl implements ForumService {
 		forumDAO.saveForumPost(forumPost);
 	}
 
+	
 	@Override
 	@Transactional
-	public void saveUser(User user) {
+	public void saveRole(Role role) {
 		
-		forumDAO.saveUser(user);
+		forumDAO.saveRole(role);
 	}
 
 }
