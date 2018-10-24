@@ -1,6 +1,5 @@
 package pl.webproject.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,7 +22,7 @@ public class ForumPost {
 	/*
 	@OneToOne(mappedBy = "forumPost", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	*/
-	@OneToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="id_user")
 	User user;
 	

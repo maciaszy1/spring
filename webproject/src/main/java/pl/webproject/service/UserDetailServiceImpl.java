@@ -38,8 +38,10 @@ public class UserDetailServiceImpl implements UserService {
 		
 		User user = forumDAO.findByUserName(userName);
 		if(user == null) {
-			throw new UsernameNotFoundException("Invalid username or password.");
-		} 
+			throw new UsernameNotFoundException("zle haslo albo nazwa uzytkownika");
+		}else if(user.getEnabled() == 0) {
+			throw new UsernameNotFoundException("uzytkownik jest zbanowany");
+		}
 		return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(), mapRolesToAuthorities(user.getRoles()));
 	}
 	

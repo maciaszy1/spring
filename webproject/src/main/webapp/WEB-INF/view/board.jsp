@@ -17,7 +17,7 @@
 <c:url var="deletePost" value="/deletePost">
 	<c:param name="postId" value="${tempPost.id}"/>
 </c:url>
-<p>Wpis dokonany przez: ${tempPost.user.username} || ${tempPost.title} || <a href="${deletePost}">Usun</a> </p>
+<td><tr>||Wpis dokonany przez: ${tempPost.user.username} ||</tr><tr>||tytyl: ${tempPost.title} ||</tr> <tr><a href="${deletePost}">Usun</a></tr> </td>
 <hr>
 <p>${tempPost.content}</p>
 <hr><hr>

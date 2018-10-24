@@ -49,6 +49,14 @@ public class ForumController {
 		
 		return "admin";
 	}
+	
+	@PostMapping("/banUser")
+	public String banUser(@RequestParam("userName") String userName, @ModelAttribute("user") User user){
+		user = userDetailService.findByUserName(userName);
+		user.setEnabled(0);
+		userDetailService.saveUser(user);
+		return "redirect:/";
+	}
 
 	@PostMapping("/saveForumCategory")
 	public String saveForumCategory(@ModelAttribute("forumCategory") ForumCategory forumCategory) {

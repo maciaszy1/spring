@@ -27,6 +27,7 @@ public class WebProjectSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired 
 	UserService userDetailsService;
+	//W razie problemów z baz¹ mo¿na ustawiæ logowanie "reczne"
 	/*
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
 	
@@ -38,7 +39,7 @@ public class WebProjectSecurityConfig extends WebSecurityConfigurerAdapter {
 								
 	}
 	*/
-	
+	// ustawienie autentykacji na podstawie loadUser? Oraz dodanie kodowania/dekodowanie bcrypt hasel
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		
@@ -47,7 +48,7 @@ public class WebProjectSecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.setPasswordEncoder(passwordEncoder());
 		return auth;
 	}
-	
+	//uyzcie wzyej skonfigurowanej autentykacji
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
 		
 		auth.authenticationProvider(authenticationProvider());
@@ -68,7 +69,7 @@ public class WebProjectSecurityConfig extends WebSecurityConfigurerAdapter {
 			.formLogin()
 			.loginPage("/showLoginPage")
 			.loginProcessingUrl("/authenticateTheUser")
-			.successHandler(customAuthenticationSuccessHandler)
+			.successHandler(customAuthenticationSuccessHandler) //klasa konfiguracyjna sukcesu logowania
 			.permitAll()
 			.and()
 			.logout()

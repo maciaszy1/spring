@@ -13,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -34,8 +34,8 @@ public class User {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="id_user")
 	*/
-	@OneToOne(mappedBy = "user", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-	private ForumPost forumPost;
+	@OneToMany(mappedBy = "user", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	private Collection<ForumPost> forumPosts;
 	
 	@Column(name="enabled")
 	private int enabled; 
@@ -78,12 +78,12 @@ public class User {
 		this.password = password;
 	}
 
-	public ForumPost getForumPost() {
-		return forumPost;
+	public Collection<ForumPost> getForumPosts() {
+		return forumPosts;
 	}
 
 	public void setForumPost(ForumPost forumPost) {
-		this.forumPost = forumPost;
+		forumPosts.add(forumPost);
 	}
 	
 	public int getEnabled() {
@@ -133,7 +133,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", forumPost=" + forumPost
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", forumPost=" + forumPosts
 				+ ", enabled=" + enabled + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
 				+ ", roles=" + roles + "]";
 	}

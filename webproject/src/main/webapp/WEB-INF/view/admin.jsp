@@ -11,6 +11,13 @@
 <body>
 	<h4>Panel Administracyjny</h4><br>
 	<hr><hr>
+	<h4>BANOWANIE UZYTKOWNIKOW</h4><br>
+	<form:form action="banUser"  method="POST">
+		<label>Uzytkownik do zbanowania</label><input type="text" name="userName" id="userName"/>
+		<br>
+		<input type="submit" value="BANUJ"/>
+	</form:form>
+	<hr>
 	<h4>DODAJ KATEGORIE</h4><br>
 	
 	<form:form action="saveForumCategory" modelAttribute="forumCategory" method="POST">
